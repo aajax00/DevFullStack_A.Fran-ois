@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    background-color: lightgrey;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.page-conatiner {
+    position: relative;
+    margin: 0 auto;
+}
+
+.box {
+    position: absolute;
+    border: 1px solid black;
+    width: 96%;
+    height: 92%;
+    display: flex;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+
+
