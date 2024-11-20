@@ -1,0 +1,132 @@
+/* Réinitialisation de la marge et du padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corps du document */
+body {
+    font-family: 'Anton', sans-serif;
+    background: linear-gradient(45deg, rgb(240, 240, 240), rgb(200, 200, 200)); /* Gradient léger */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    height: 100vh; /* Assure que le corps occupe toute la hauteur de la fenêtre */
+    overflow: hidden; /* Empêche les débordements */
+    color: #333;
+    text-align: center; /* Centre le texte à l'intérieur des éléments */
+}
+
+/* Styles pour les barres latérales (left et right) */
+.sidebar-left, .sidebar-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 20%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: -1;
+}
+
+.sidebar-left {
+    left: 0;
+}
+
+.sidebar-right {
+    right: 0;
+}
+
+/* Menu : centré avec Flexbox */
+.menu {
+    display: flex; /* Utilisation de Flexbox pour aligner les titres */
+    flex-direction: column; /* Aligner les titres en colonne */
+    justify-content: center; /* Centrer les titres verticalement */
+    align-items: center; /* Centrer les titres horizontalement */
+    z-index: 10;
+    font-weight: bold;
+    height: 100%; /* Assure que le menu prend toute la hauteur du body */
+}
+
+/* Liens du menu */
+.menu a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Styles des titres */
+.menu h1, .menu h2, .menu h3, .menu h4, .menu h5 {
+    margin: 0;
+    padding: 0;
+    font-size: 6em; /* Taille de police réduite */
+    transition: transform 0.3s ease, color 0.3s ease, font-size 0.3s ease, -webkit-text-stroke 0.3s ease;
+    position: relative;
+    line-height: 1.2;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    background: transparent;
+    padding: 10px;
+    border-radius: 10px;
+    color: #555;
+    transform: rotate(2deg) scaleX(2.5);
+}
+
+/* Effet au survol des titres */
+.menu h1:hover, .menu h2:hover, .menu h3:hover, .menu h4:hover, .menu h5:hover {
+    transform: scale(1.15);
+    font-size: 6em;
+    color: #fff;
+    -webkit-text-stroke: 2px #333;
+    text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.6);
+    background: transparent;
+}
+
+/* Animation pour les barres latérales */
+.sidebar-left, .sidebar-right {
+    animation: slide-in 2s ease-out infinite;
+}
+
+/* MEDIA QUERIES */
+
+/* Pour les écrans de moins de 768px (tablettes et téléphones en mode paysage) */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* Empile les éléments verticalement */
+    }
+
+    /* Réduire la taille des titres pour les petits écrans */
+    .menu h1, .menu h2, .menu h3, .menu h4, .menu h5 {
+        font-size: 4em; /* Réduire la taille des titres */
+    }
+
+    /* Modifie la largeur des barres latérales */
+    .sidebar-left, .sidebar-right {
+        width: 10%; /* Réduire la largeur des barres latérales sur petit écran */
+    }
+}
+
+/* Pour les écrans de moins de 480px (smartphones en portrait) */
+@media (max-width: 480px) {
+    body {
+        height: auto; /* Supprime la hauteur fixe pour les petits écrans */
+        padding: 20px; /* Ajoute un peu de padding */
+    }
+
+    /* Réduire davantage la taille des titres */
+    .menu h1, .menu h2, .menu h3, .menu h4, .menu h5 {
+        font-size: 2.5em; /* Taille des titres encore plus petite sur mobile */
+    }
+
+    .sidebar-left, .sidebar-right {
+        width: 5%; /* Réduit encore la largeur des barres latérales */
+    }
+}
+
+/* Pour les grands écrans de plus de 1024px (PC de bureau) */
+@media (min-width: 1024px) {
+    .menu h1, .menu h2, .menu h3, .menu h4, .menu h5 {
+        font-size: 8em; /* Taille des titres plus grande sur grand écran */
+    }
+
+    .sidebar-left, .sidebar-right {
+        width: 20%; /* Largeur originale des barres latérales */
+    }
+}
