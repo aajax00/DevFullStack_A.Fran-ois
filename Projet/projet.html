@@ -5,47 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu des Projets</title>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Ultra&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="projet.css">
+    <link rel="stylesheet" href="/Projet/projet.css">
 </head>
 <body>
-    <!-- Menu content -->
-    <div class="menu">
-        <a href="projet1.html" target="_blank"><h1>PROJET 1</h1></a>
-        <a href="projet2.html" target="_blank"><h2>PROJET 2</h2></a>
-        <a href="projet3.html" target="_blank"><h3>PROJET 3</h3></a>
-        <a href="projet4.html" target="_blank"><h4>PROJET 4</h4></a>
-        <a href="projet5.html" target="_blank"><h5>PROJET 5</h5></a>
+    <div class="cursor" id="cursor"></div>
+    <div class="container">
+        <!-- Filter UI inside the container -->
+        <div class="filter-container">
+            <select id="projectFilter" onchange="filterProjects()">
+                <option value="all">Tout</option>
+                <option value="sql">SQL</option>
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+            </select>
+        </div>
+
+        <!-- Menu content with projects -->
+        <div class="menu">
+            <a href="role.html" target="_blank" class="project python"><h1>JEU DE ROLE</h1></a>
+            <a href="inscription.html" target="_blank" class="project python sql"><h1>INSCRIPTION</h1></a>
+            <a href="Gestion.html" target="_blank" class="project sql javascript"><h1>GESTION SECU</h1></a>
+            <a href="Scanner.html" target="_blank" class="project sql python"><h1>SCANNER</h1></a>
+            <a href="convertisseur.html" target="_blank" class="project python javascript"><h1>CONVERTISSEUR</h1></a>
+        </div>
     </div>
     <script>
-        // Récupérer l'élément de menu
+        // Function to filter the projects based on the selected option
+        function filterProjects() {
+            const filterValue = document.getElementById('projectFilter').value;
+            const projects = document.querySelectorAll('.menu .project');
+            
+            projects.forEach(project => {
+                // If 'All' is selected, show all projects
+                if (filterValue === 'all') {
+                    project.classList.remove('hidden');
+                } else {
+                    // Hide projects that do not match the selected category
+                    if (project.classList.contains(filterValue)) {
+                        project.classList.remove('hidden');
+                    } else {
+                        project.classList.add('hidden');
+                    }
+                }
+            });
+        }
+        // Mouse move effect for menu
         const menu = document.querySelector('.menu');
-
-        // Fonction pour appliquer l'effet de profondeur basé sur la position de la souris
         document.addEventListener('mousemove', (e) => {
-            const x = e.clientX; // Position X de la souris
-            const y = e.clientY; // Position Y de la souris
-            const width = window.innerWidth; // Largeur de la fenêtre
-            const height = window.innerHeight; // Hauteur de la fenêtre
-
-            // Calculer les décalages pour l'effet de profondeur
-            const moveX = (x - width / 2) / width * 50; // Déplacement sur X
-            const moveY = (y - height / 2) / height * 50; // Déplacement sur Y
-
-            // Appliquer la transformation sur l'élément de menu
+            const x = e.clientX; // Position X of the mouse
+            const y = e.clientY; // Position Y of the mouse
+            const width = window.innerWidth; // Window width
+            const height = window.innerHeight; // Window height
+            const moveX = (x - width / 2) / width * 50; // X movement
+            const moveY = (y - height / 2) / height * 50; // Y movement
             menu.style.transform = `rotateX(${moveY}deg) rotateY(${moveX}deg)`;
         });
-        
-//  Le cheminement de notre site portfolio a été conçu en utilisant principalement HTML et CSS pour créer 
-//  une structure et une présentation soignée. Tout d'abord, le **HTML** a été utilisé pour définir la structure de base du site. 
-//  Nous avons créé plusieurs sections, telles que l'en-tête, la présentation personnelle et un portfolio avec des projets. 
-//  Chaque section a été codée avec des éléments de balisage sémantique comme  les `<article>`, `<div>`, et `<nav>`, pour structurer 
-//  l'information de manière logique et accessible. Ensuite, nous avons appliqué des styles avec **CSS** pour personnaliser l'apparence de chaque élément.
-//  Le CSS a permis d'ajouter des couleurs, des polices, des espacements et des effets
-//  interactifs pour rendre le site agréable visuellement. Nous avons utilisé des **grilles CSS** et des **flexbox** pour créer une mise en page réactive et 
-//  fluide, adaptée à tous les appareils, en particulier les mobiles. Enfin, les transitions et les animations CSS ont été intégrées pour dynamiser
-//  l'expérience utilisateur, notamment lors du survol de certains éléments. Ce processus nous a permis de créer un site simple, élégant et fonctionnel.
-
     </script>
-
+    <script src="/script.js"></script>
 </body>
 </html>
