@@ -65,7 +65,7 @@ footer {
     height: 90vh;
     margin-top: 45px;
     margin-left: 50px;
-    background-image: url(/img/2.gif);
+    background-image: url(./img/2.gif);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
