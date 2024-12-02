@@ -2,7 +2,7 @@
 CREATE DATABASE IF NOT EXISTS `aguardien`;
 USE `aguardien`;
 
-DROP TABLE projets;
+DROP TABLE comptes;
 -- Table Creation
 CREATE TABLE IF NOT EXISTS `projets` (
     `projet_id` INTEGER AUTO_INCREMENT,
@@ -18,6 +18,17 @@ CREATE TABLE IF NOT EXISTS `projets` (
     PRIMARY KEY (`projet_id`)
 );
 
+-- Creation table utilisateur
+CREATE TABLE IF NOT EXISTS `comptes` (
+    `nom_id` INTEGER AUTO_INCREMENT,
+    `nom` TEXT,
+    `prenom` TEXT,
+    `loginU` TEXT,
+    `mdp` TEXT,
+    PRIMARY KEY (`nom_id`)
+);
+
+
 -- Removing Old Data
 DELETE FROM `projets`;
 -- SELECT FORMAT (getdate(), 'dd/MM/yyyy') as date;
@@ -31,3 +42,11 @@ VALUES
 './img/commercia_map.jpg',  
 "Ce projet a été une belle opportunité d'apprentissage et d'innovation.", 
 'Python', 'null', 'null');
+
+-- Data Insertion compte utilisateur
+INSERT INTO `comptes` (nom, prenom, loginU, mdp) VALUES
+('aaaa', 'bbbb', 'cccc', 'cccc');
+
+
+
+
