@@ -43,10 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['login'] = $user['login'];
 
                 // Rediriger vers le tableau de bord
-                header("Location: aguardien.php");  // Assurez-vous que dashboard.php existe    //////////////////////////////////////////////////////////////////////////////
+                header("Location: aguardien.php?id=" . $_SESSION['user_id']);  // Assurez-vous que dashboard.php existe    //////////////////////////////////////////////////////////////////////////////
                 exit;
             } else {
                 $loginError = "Identifiants incorrects.";
+                // echo "Identifiants incorrects";
             }
         } else {
             $loginError = "Tous les champs sont requis.";
@@ -114,6 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-container sign-up-container">
             <form action="" method="POST">
                 <h1>Cree ton compte</h1>
+
+                <?php if ($inscriptionError): ?>
+                    <p class="error"><?php echo $inscriptionError; ?></p>
+                <?php endif; ?>
+
                 <label for="nom">Nom</label>
                 <input type="text" id="nom" placeholder="Nom" name="nom" required>
 
@@ -128,9 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 <button type="submit" name="create_account">s'inscrire</button>
             </form>
-            <?php if ($inscriptionError): ?>
-                <p class="error"><?php echo $inscriptionError; ?></p>
-            <?php endif; ?>
+            
         </div>
 
 
@@ -138,18 +142,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="" method="post">
                 <h1>Connecte toi</h1>
 
+                <?php if ($loginError): ?>
+                <p style="color: red;"><?php echo $loginError; ?></p>
+                <?php endif; ?>
+
                 <label for="login"></label>
                 <input id="login" type="text" name="login" placeholder="Login" required>
 
 
                 <label for="mdp">Mot de passe</label>
                 <input id="mdp" type="password" name="mdp" placeholder="Mot de passe" required>
-                <!-- <a href="#">Tu as perdu ton mot de passe?</a> -->
+                <a href="https://www.youtube.com/watch?v=80Sf6x2ZKJM">Tu as perdu ton mot de passe?</a>
                 <button type="submit" value="Se connecter">Se connecter</button>
-            </form>
-            <?php if ($loginError): ?>
-                <p style="color: red;"><?php echo $loginError; ?></p>
-            <?php endif; ?>
+            </form>>
         </div>
 
         

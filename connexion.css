@@ -1,16 +1,18 @@
 * {
+	margin: 0;
+    padding: 0;
 	box-sizing: border-box;
 }
 
 body {
-	background: #1b1b1b;
+	background-image: url("./img/giphy.gif");
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
-	margin: -20px 0 50px;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -50,7 +52,7 @@ a:hover {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #ff2600;
+	border: 2px solid #ffffff;
 	background-color: #ffffff;
 	color: #000000;
 	font-size: 12px;
@@ -59,7 +61,14 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+	transition: 0.2s ease-in-out;
     cursor: pointer;
+}
+
+button:hover {
+	border: 2px solid #ffffff;
+	background-color: #000000;
+	color: #ffffff;
 }
 
 button:active {
@@ -72,7 +81,16 @@ button:focus {
 
 button.ghost {
 	background-color: transparent;
-	border-color: #ff0000;
+	filter: grayscale(100%);
+	border-color: #000000;
+	color: #ffffff;
+	transition: 0.3s ease-in-out;
+}
+
+button.ghost:hover {
+	background-color: black;
+	border-color: #ffffff;
+	color: #ffffff;
 }
 
 form {
@@ -95,7 +113,7 @@ input {
 }
 
 .container {
-	background-color: #fff;
+	background-color: black;
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
@@ -166,8 +184,8 @@ input {
 
 .overlay {
 	background: #ffffff;
-	background: -webkit-linear-gradient(to right, #000000, #ffffff);
-	background: linear-gradient(to right, #ffffff, #000000);
+	background: -webkit-linear-gradient(to right, #000000, #000000);
+	background: linear-gradient(to right, #317a49, #38c71b);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
@@ -179,6 +197,7 @@ input {
   	transform: translateX(0);
 	transition: transform 0.6s ease-in-out;
 }
+
 
 .container.right-panel-active .overlay {
   	transform: translateX(50%);
@@ -232,11 +251,11 @@ input {
 }
 
 footer {
-    background-color: #222;
+    background-color: #000000;
     color: #fff;
     font-size: 14px;
-    bottom: 0;
-    position: fixed;
+    bottom: 0px;
+    position: absolute;
     left: 0;
     right: 0;
     text-align: center;

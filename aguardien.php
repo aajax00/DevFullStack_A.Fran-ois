@@ -1,16 +1,23 @@
 <?php
+require_once(__DIR__ . '/config/mysql.php');
+require_once(__DIR__ . '/databaseconnect.php');
+require_once(__DIR__ . '/variables.php');
+
+
 // Démarrer la session
 session_start();
 
 // Vérifier si l'utilisateur est connecté
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['login'])) {
     header("Location: index.php"); // Rediriger vers la page de connexion si non connecté
     exit;
 }
 
-// echo "<h1>Bienvenue " . $_SESSION['login'] . " !</h1>";
-// echo "<p>Vous êtes connecté et voici votre tableau de bord.</p>";
+// echo "Bienvenue " . $_SESSION['login'];
+// echo " ";
+// echo "Vous êtes connecté";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +41,20 @@ if (!isset($_SESSION['user_id'])) {
             <h1>Alexandre Gardien</h1>
             <p class="subtitle">Developpeur Web Fullstack</p>
         </div>
+
+        
+
         <div class="box">
+
+        <?php if ($_SESSION['login']): ?>
+            <p class="session">
+                <?php 
+                    echo "Bienvenue " . $_SESSION['login'];
+                    echo " ";
+                    echo "Vous êtes connecté"; ?>
+            </p>
+        <?php endif; ?>
+
             <main>
                 <section class="hero">
                     <div class="hero-content">
@@ -68,9 +88,6 @@ if (!isset($_SESSION['user_id'])) {
                                 </div>
                                 <div class="menu-item">
                                     <a href="mailto:contact@guardia.school" class="link">Contact</a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="compte.php" class="link">Compte</a>
                                 </div>
                             </div>
                         </div>
