@@ -1,5 +1,9 @@
 
-
+<?php
+require_once(__DIR__ . '/config/mysql.php');
+require_once(__DIR__ . '/databaseconnect.php');
+require_once(__DIR__ . '/variables.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,11 +29,14 @@
 
         <!-- Menu content with projects -->
         <div class="menu">
-            <!-- <a href="./Projet/role.html" target="_blank" class="project python"><h1>JEU DE ROLE</h1></a> -->
-            <a href="./Projet/inscription.html" target="_blank" class="project python sql"><h1>INSCRIPTION</h1></a>
-            <a href="./Projet/Gestion.html" target="_blank" class="project sql javascript"><h1>GESTION SECU</h1></a>
+
+            <?php foreach ($projets as $projet): ?>
+                <!-- <a href="./Projet/role.html" target="_blank" class="project python"><h1>JEU DE ROLE</h1></a> -->
+                <a href="./projet-db.php?id=<?= $projet['projet_id']; ?>" target="_blank" class="project python sql"><h1><?php echo $projet['projetName']; ?></h1></a>
+            <?php endforeach; ?>
+            <!-- <a href="./Projet/Gestion.html" target="_blank" class="project sql javascript"><h1>GESTION SECU</h1></a>
             <a href="./Projet/Scanner.html" target="_blank" class="project sql python"><h1>SCANNER</h1></a>
-            <a href="./Projet/convertisseur.html" target="_blank" class="project python javascript"><h1>CONVERTISSEUR</h1></a>
+            <a href="./Projet/convertisseur.html" target="_blank" class="project python javascript"><h1>CONVERTISSEUR</h1></a> -->
         </div>
     </div>
     <script>

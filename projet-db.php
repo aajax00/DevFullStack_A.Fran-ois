@@ -2,6 +2,16 @@
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/databaseconnect.php');
 require_once(__DIR__ . '/variables.php');
+
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id = (int) $_GET['id'];
+}
+
+$stmt = $mysqlClient->prepare('SELECT * FROM projets WHERE projet_id = :id');
+$stmt->execute(['id' => $id]);
+$projet = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -97,13 +107,13 @@ require_once(__DIR__ . '/variables.php');
     </header>
 
     <section>
-        <h2><?php echo $projets[0]['projetName']; ?> - <span>[<?php echo $projets[0]['dateprojet']; ?>]</span></h2>
-        <p><?php echo $projets[0]['projetDesc']; ?></p>
+        <h2><?php echo $projets[$id]['projetName']; ?> - <span>[<?php echo $projets[$id]['dateprojet']; ?>]</span></h2>
+        <p><?php echo $projets[$id]['projetDesc']; ?></p>
     </section>
 
     <section>
         <h2>Objectifs du Projet</h2>
-        <p><?php echo $projets[0]['projetObj']; ?></p>
+        <p><?php echo $projets[$id]['projetObj']; ?></p>
     </section>
 
     <section>
@@ -114,7 +124,7 @@ require_once(__DIR__ . '/variables.php');
             </div>
             <!-- Placez ici vos photos -->
             <div class="image">
-                <img src="<?php echo $projets[0]['imageproj']; ?>" alt="">
+                <img src="<?php echo $projets[$id]['imageproj']; ?>" alt="">
             </div>
             <div>
 
@@ -126,7 +136,7 @@ require_once(__DIR__ . '/variables.php');
         <h2>Conclusion</h2>
         <div class="project-card">
             <h2>Ressenti</h2>
-            <p><?php echo $projets[0]['experience']; ?></p>
+            <p><?php echo $projets[$id]['experience']; ?></p>
         </div>
     </section>
 

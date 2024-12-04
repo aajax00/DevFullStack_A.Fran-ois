@@ -51,7 +51,7 @@
                                     <a href="#education" class="link">Infos</a>
                                 </div>
                                 <div class="menu-item">
-                                    <a href="projet-db.php"  target="_blank" class="link">ProJets</a>
+                                    <a href="projet.php"  target="_blank" class="link">ProJets</a>
                                 </div>
                                 <div class="menu-item">
                                     <a href="mailto:contact@guardia.school" class="link">Contact</a>
