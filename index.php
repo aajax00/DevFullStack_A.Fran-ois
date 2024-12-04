@@ -1,3 +1,100 @@
+<?php
+require_once(__DIR__ . '/config/mysql.php');
+// require_once(__DIR__ . '/databaseconnect.php');
+// require_once(__DIR__ . '/variables.php');
+
+
+try {
+    $pdo = new PDO(
+        sprintf('mysql:host=%s;dbname=aguardien;port=%s;charset=utf8', MYSQL_HOST, MYSQL_NAME, MYSQL_PORT),
+        MYSQL_USER,
+        MYSQL_PASSWORD
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion à la base de données : " . $e->getMessage());
+}
+
+// Démarrer la session
+session_start();
+
+$loginError = '';
+$inscriptionError = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Traitement de la connexion
+    if (isset($_POST['login'])) {
+        $login = htmlspecialchars(trim($_POST['login']));
+        $mdp = htmlspecialchars(trim($_POST['mdp']));
+
+        if (!empty($login) && !empty($mdp)) {
+            // Vérifier les informations de connexion
+            $sql = "SELECT * FROM comptes WHERE login = :login";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':login', $login);
+            $stmt->execute();
+
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Vérifier si l'utilisateur existe et si le mot de passe correspond
+            if ($user && password_verify($mdp, $user['mdp'])) {
+                // Authentification réussie, démarrer la session
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['login'] = $user['login'];
+
+                // Rediriger vers le tableau de bord
+                header("Location: aguardien.php");  // Assurez-vous que dashboard.php existe    //////////////////////////////////////////////////////////////////////////////
+                exit;
+            } else {
+                $loginError = "Identifiants incorrects.";
+            }
+        } else {
+            $loginError = "Tous les champs sont requis.";
+        }
+    }
+
+    // Traitement de l'inscription
+    if (isset($_POST['create_account'])) {
+        $nom = trim($_POST['nom']);
+        $prenom = trim($_POST['prenom']);
+        $login = trim($_POST['login']);
+        $mdp = trim($_POST['mdp']);
+
+        if (!empty($nom) && !empty($prenom) && !empty($login) && !empty($mdp)) {
+            // Vérifier si le login existe déjà
+            $sql = "SELECT * FROM comptes WHERE login = :login";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':login', $login);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $inscriptionError = "Le login est déjà utilisé.";
+            } else {
+                // Hacher le mot de passe
+                $hashedPassword = password_hash($mdp, PASSWORD_DEFAULT);
+
+                $sql = "INSERT INTO comptes (nom, prenom, login, mdp) VALUES (:nom, :prenom, :login, :mdp)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':nom', $nom);
+                $stmt->bindParam(':prenom', $prenom);
+                $stmt->bindParam(':login', $login);
+                $stmt->bindParam(':mdp', $hashedPassword);
+
+                if ($stmt->execute()) {
+                    $inscriptionError = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+                } else {
+                    $inscriptionError = "Erreur lors de l'inscription.";
+                }
+            }
+        } else {
+            $inscriptionError = "Tous les champs sont requis.";
+        }
+    }
+}
+?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -5,210 +102,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <!-- FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-    <title>Alexandre Gardien</title>
+    <link rel="stylesheet" href="./connexion.css">
+    <title>Connexion</title>
 </head>
 
 <body>
-    <div class="cursor" id="cursor"></div>
 
-    <div class="container">
-        <div class="header">
-            <h1>Alexandre Gardien</h1>
-            <p class="subtitle">Developpeur Web Fullstack</p>
+
+    <h2>ALEXANDRE GARDIEN</h2>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="" method="POST">
+                <h1>Cree ton compte</h1>
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" placeholder="Nom" name="nom" required>
+
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" placeholder="Prenom" name="prenom" required>
+
+                <label for="login">Login</label>
+                <input type="text" id="login" placeholder="Login" name="login" required>
+
+                <label for="mdp">Mot de passe</label>
+                <input type="password" id="mdp" placeholder="Mot de passe" name="mdp" required>
+                
+                <button type="submit" name="create_account">s'inscrire</button>
+            </form>
+            <?php if ($inscriptionError): ?>
+                <p class="error"><?php echo $inscriptionError; ?></p>
+            <?php endif; ?>
         </div>
-        <div class="box">
-            <main>
-                <section class="hero">
-                    <div class="hero-content">
-                        <h1>Bienvenue,<br>
-                            Tu cherches un <span>Developpeur web Fullstack</span> ?
-                        </h1>
-                        <p>Je suis <span>Alexandre</span>, un développeur web fullstack <span>passionné</span>.<br>
-                            Je suis l'incarnation de l’adaptation et la créativité.<br>
-                            je crée des solution numériques modernes et performantes, <br>du design à la base de donnée.
-                        </p>
-
-                        <div class="social">
-                            <a href="https://www.linkedin.com/school/guardia-cybersecurity-school/" target="_blank">
-                                <i class="fa-brands fa-linkedin"></i>
-                            </a>
-                            <a href="https://x.com/Guardia_School" target="_blank">
-                                <i class="fa-brands fa-twitter"></i>
-                            </a>
-                            <a href="https://www.facebook.com/guardiaschool/" target="_blank">
-                                <i class="fa-brands fa-facebook"></i>
-                            </a>
-                        </div>
-
-                        <div class="sec-right">
-                            <div class="menu">
-                                <div class="menu-item">
-                                    <a href="#education" class="link">Infos</a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="projet.php"  target="_blank" class="link">ProJets</a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="mailto:contact@guardia.school" class="link">Contact</a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="compte.php" class="link">Compte</a>
-                                </div>
-                            </div>
-                        </div>
 
 
-                    </div>
+        <div class="form-container sign-in-container">
+            <form action="" method="post">
+                <h1>Connecte toi</h1>
 
-                    <div class="photo">
-                        <img src="img/agardien.png" alt="">
-                    </div>
+                <label for="login"></label>
+                <input id="login" type="text" name="login" placeholder="Login" required>
 
-                </section>
-            </main>
 
+                <label for="mdp">Mot de passe</label>
+                <input id="mdp" type="password" name="mdp" placeholder="Mot de passe" required>
+                <!-- <a href="#">Tu as perdu ton mot de passe?</a> -->
+                <button type="submit" value="Se connecter">Se connecter</button>
+            </form>
+            <?php if ($loginError): ?>
+                <p style="color: red;"><?php echo $loginError; ?></p>
+            <?php endif; ?>
+        </div>
+
+        
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Bonjour !</h1>
+                    <p>Pour te connecter, utilise tes information personnels</p>
+                    <button class="ghost" id="signIn">Se connecter</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>tu n'as pas de compte ?</h1>
+                    <p>Cree toi un noiveau compte !</p>
+                    <button class="ghost" id="signUp">S'inscrire</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <section class="section-education" id="education">
-        <h2 class="heading">EDUCATION</h2>
-
-        <div class="timeline">
-            <div class="time-item">
-                <div class="time-dot"></div>
-                <div class="time-date-1">2023</div>
-                <div class="time-content">
-                    <h3>MASTER IGÉNIERIE WEB ET INNOVATIONS DIGITALES</h3>
-                    <p>IIM Digital School (47 BD de Pésaro, 92000 Nanterre)</p>
-                    <P><li>Architecture mobile : Flutter, Swift</li> </P>
-                    <p><li>DevOps : Azure, Kubernetes, AWS</li></p>
-                    <p><li>Open source : création et contribution</li></p>
-                    <p><li>Creative development : nouvelles interfaces</li></p>
-                </div>
-            </div>
-
-            <div class="time-item">
-                <div class="time-dot"></div>
-                <div class="time-date-2">2021</div>
-                <div class="time-content">
-                    <h3>BACHELOR APPLICATION DEVELOPER</h3>
-                    <p>ECE-PARIS (131 BD de Sébastopol, 75002 Paris)</p>
-                    <p><li>Développer une application sécurisée</li></p>
-                    <p><li>Développer une application sécurisée en couches</li></p>
-                    <p><li>Préparer le déploiement d’une application sécurisée</li></p>
-                </div>
-            </div>
-
-            <div class="time-item">
-                <div class="time-dot"></div>
-                <div class="time-date-3">2020</div>
-                <div class="time-content">
-                    <h3>BTS SIO / SLAM</h3>
-                    <p>IMIE-PARIS (70 r Anatole France, 92300 Levallois Perret) </p>
-                    <p><li>Mathématiques pour l'informatique</li></p>
-                    <p><li>Culture économique, juridique et managériale pour l'informatique</li></p>
-                    <p><li>Conception et développement d'applications</li></p>
-                    <p><li>Support et mise à disposition de services informatiques</li></p>
-                </div>
-
-            </div>
-
-            <div class="time-item">
-                <div class="time-dot"></div>
-                <div class="time-date-4">2018</div>
-                <div class="time-content">
-                    <h3>BAC S SCIENCE DE L'INGÉNIEUR</h3>
-                    <p>Lycée Charles Augustin Coulomb (10 all Joachim du Bellay, 16000 Angoulême) </p>
-                    <p><li>les objets connectés et l’internet des objets</li></p>
-                    <p><li>les applications numériques nomades</li></p>
-                    <p><li>l’ingénierie design et le prototypage de produits innovants</li></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="competence" id="competence">
-        <h2 class="heading">Compétence</h2>
-        <div class="competence-container">
-            <div class="competence-box">
-                <div class="competence-info">
-                    <h4>Fullstack web</h4>
-                    <p> HTML CSS JS(angular, react) </p>
-                </div>
-            </div>
-            <div class="competence-box">
-                <div class="competence-info">
-                    <h4>Python</h4>
-                    <p> DJANGO TURBOGEARS PYRAMID </p>
-                </div>
-            </div>
-            <div class="competence-box">
-                <div class="competence-info">
-                    <h4>Base de donnée</h4>
-                    <p> MySQL Oracle Mongodb </p>
-                </div>
-            </div>
-            <div class="competence-box">
-                <div class="competence-info">
-                    <h4>CMS</h4>
-                    <p> Wordpress Magneto </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="experience" id="experience">
-        <div class="experience-box">
-            <h2 class="heading">Expérience</h2>
-            <div class="wrapper">
-                <div class="experience-item">
-                    <img src="img/Vera.jpg">
-                    <h2>Vera</h2>
-                    <div class="rating">
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                    </div>
-                    <p>Création d'un site e-commerce pour un créateur de vêtement</p>
-                </div>
-                <div class="experience-item">
-                    <img src="img/arm.jpg">
-                    <h2>Armure et Saumure</h2>
-                    <div class="rating">
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                    </div>
-                    <p>Création d'un site web d'entreprise</p>
-                </div>
-                <div class="experience-item">
-                    <img src="img/ang.jpg">
-                    <h2>Angoulème</h2>
-                    <div class="rating">
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                        <i class="fa-sharp fa-solid fa-star"></i>
-                    </div>
-                    <p>Amélioration du site web de la mairie d'anghouleme</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer>
-        <p>&copy; 2024 Alexandre Gardien | Tous droits réservés</p>
+        <p> &copy; Alexandre Gardien - 2024 </p>
     </footer>
 
 
-    <script src="https://kit.fontawesome.com/b283df68b9.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

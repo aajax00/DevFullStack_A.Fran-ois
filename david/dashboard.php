@@ -8,6 +8,6 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-echo "<h1>Bienvenue " . $_SESSION['login'] . " !</h1>";
-echo "<p>Vous êtes connecté et voici votre tableau de bord.</p>";
+// echo "<h1>Bienvenue " . $_SESSION['login'] . " !</h1>";
+// echo "<p>Vous êtes connecté et voici votre tableau de bord.</p>";
 ?>

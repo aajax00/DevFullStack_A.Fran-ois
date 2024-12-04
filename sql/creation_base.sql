@@ -3,6 +3,8 @@ CREATE DATABASE IF NOT EXISTS `aguardien`;
 USE `aguardien`;
 
 DROP TABLE IF EXISTS `comptes`;
+DROP TABLE IF EXISTS `projets`;
+
 -- Table Creation
 CREATE TABLE IF NOT EXISTS `projets` (
     `projet_id` INTEGER AUTO_INCREMENT,
@@ -18,14 +20,15 @@ CREATE TABLE IF NOT EXISTS `projets` (
     PRIMARY KEY (`projet_id`)
 );
 
+
 -- Creation table utilisateur
 CREATE TABLE IF NOT EXISTS `comptes` (
-    `nom_id` INTEGER AUTO_INCREMENT,
+    `id` INTEGER AUTO_INCREMENT,
     `nom` TEXT,
     `prenom` TEXT,
-    `loginU` TEXT,
+    `login` TEXT,
     `mdp` TEXT,
-    PRIMARY KEY (`nom_id`)
+    PRIMARY KEY (`id`)
 );
 
 
@@ -81,8 +84,15 @@ VALUES
 
 
 -- Data Insertion compte utilisateur
-INSERT INTO `comptes` (nom, prenom, loginU, mdp) VALUES
-('aaaa', 'bbbb', 'cccc', 'cccc');
+-- INSERT INTO users (nom, prenom, login, mdp) VALUES 
+-- ('Dupont', 'Jean', 'jdp@mail.com', 'azerty'),
+-- ('Dusinge', 'Karine', 'kds@mail.com', 'uiop'),
+-- ('Dufond', 'Carole', 'cdf@mail.com', 'qsdfg'),
+-- ('Duchef', 'Timeo', 'tdc@mail.com', 'hjklm'),
+-- ('Dujuin', 'Maxime', 'mdj@mail.com', 'wxcv'),
+-- ('Duvoisin', 'Patrick', 'pdv@mail.com', 'bn,;');
+
+-- SELECT * FROM users;
 
 
 
