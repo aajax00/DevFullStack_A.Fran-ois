@@ -49,9 +49,7 @@ if (!isset($_SESSION['login'])) {
         <?php if ($_SESSION['login']): ?>
             <p class="session">
                 <?php 
-                    echo "Bienvenue " . $_SESSION['login'];
-                    echo " ";
-                    echo "Vous êtes connecté"; ?>
+                    echo " 👤 - " . $_SESSION['login']; ?>
             </p>
         <?php endif; ?>
 
