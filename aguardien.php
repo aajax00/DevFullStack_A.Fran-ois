@@ -42,16 +42,20 @@ if (!isset($_SESSION['login'])) {
             <p class="subtitle">Developpeur Web Fullstack</p>
         </div>
 
-        
+        <?php if ($_SESSION['login']): ?>
+            <p class="session" onclick="toggleLogout()" unselectable="off">
+                <?php echo " 👤 - " . $_SESSION['login']; ?>
+                <span class="deco" id="deco-link">
+                    <a href="logout.php">Déconnexion</a>
+                </span>
+                
+
+            </p>
+        <?php endif; ?>
 
         <div class="box">
 
-        <?php if ($_SESSION['login']): ?>
-            <p class="session">
-                <?php 
-                    echo " 👤 - " . $_SESSION['login']; ?>
-            </p>
-        <?php endif; ?>
+
 
             <main>
                 <section class="hero">
@@ -82,7 +86,7 @@ if (!isset($_SESSION['login'])) {
                                     <a href="#education" class="link">Infos</a>
                                 </div>
                                 <div class="menu-item">
-                                    <a href="projet.php"  target="_blank" class="link">ProJets</a>
+                                    <a href="projet.php" target="_blank" class="link">ProJets</a>
                                 </div>
                                 <div class="menu-item">
                                     <a href="mailto:contact@guardia.school" class="link">Contact</a>
@@ -113,10 +117,18 @@ if (!isset($_SESSION['login'])) {
                 <div class="time-content">
                     <h3>MASTER IGÉNIERIE WEB ET INNOVATIONS DIGITALES</h3>
                     <p>IIM Digital School (47 BD de Pésaro, 92000 Nanterre)</p>
-                    <P><li>Architecture mobile : Flutter, Swift</li> </P>
-                    <p><li>DevOps : Azure, Kubernetes, AWS</li></p>
-                    <p><li>Open source : création et contribution</li></p>
-                    <p><li>Creative development : nouvelles interfaces</li></p>
+                    <P>
+                        <li>Architecture mobile : Flutter, Swift</li>
+                    </P>
+                    <p>
+                        <li>DevOps : Azure, Kubernetes, AWS</li>
+                    </p>
+                    <p>
+                        <li>Open source : création et contribution</li>
+                    </p>
+                    <p>
+                        <li>Creative development : nouvelles interfaces</li>
+                    </p>
                 </div>
             </div>
 
@@ -126,9 +138,15 @@ if (!isset($_SESSION['login'])) {
                 <div class="time-content">
                     <h3>BACHELOR APPLICATION DEVELOPER</h3>
                     <p>ECE-PARIS (131 BD de Sébastopol, 75002 Paris)</p>
-                    <p><li>Développer une application sécurisée</li></p>
-                    <p><li>Développer une application sécurisée en couches</li></p>
-                    <p><li>Préparer le déploiement d’une application sécurisée</li></p>
+                    <p>
+                        <li>Développer une application sécurisée</li>
+                    </p>
+                    <p>
+                        <li>Développer une application sécurisée en couches</li>
+                    </p>
+                    <p>
+                        <li>Préparer le déploiement d’une application sécurisée</li>
+                    </p>
                 </div>
             </div>
 
@@ -138,10 +156,18 @@ if (!isset($_SESSION['login'])) {
                 <div class="time-content">
                     <h3>BTS SIO / SLAM</h3>
                     <p>IMIE-PARIS (70 r Anatole France, 92300 Levallois Perret) </p>
-                    <p><li>Mathématiques pour l'informatique</li></p>
-                    <p><li>Culture économique, juridique et managériale pour l'informatique</li></p>
-                    <p><li>Conception et développement d'applications</li></p>
-                    <p><li>Support et mise à disposition de services informatiques</li></p>
+                    <p>
+                        <li>Mathématiques pour l'informatique</li>
+                    </p>
+                    <p>
+                        <li>Culture économique, juridique et managériale pour l'informatique</li>
+                    </p>
+                    <p>
+                        <li>Conception et développement d'applications</li>
+                    </p>
+                    <p>
+                        <li>Support et mise à disposition de services informatiques</li>
+                    </p>
                 </div>
 
             </div>
@@ -152,9 +178,15 @@ if (!isset($_SESSION['login'])) {
                 <div class="time-content">
                     <h3>BAC S SCIENCE DE L'INGÉNIEUR</h3>
                     <p>Lycée Charles Augustin Coulomb (10 all Joachim du Bellay, 16000 Angoulême) </p>
-                    <p><li>les objets connectés et l’internet des objets</li></p>
-                    <p><li>les applications numériques nomades</li></p>
-                    <p><li>l’ingénierie design et le prototypage de produits innovants</li></p>
+                    <p>
+                        <li>les objets connectés et l’internet des objets</li>
+                    </p>
+                    <p>
+                        <li>les applications numériques nomades</li>
+                    </p>
+                    <p>
+                        <li>l’ingénierie design et le prototypage de produits innovants</li>
+                    </p>
                 </div>
             </div>
         </div>
@@ -239,4 +271,5 @@ if (!isset($_SESSION['login'])) {
     <script src="https://kit.fontawesome.com/b283df68b9.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

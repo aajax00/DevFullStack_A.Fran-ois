@@ -17,3 +17,15 @@ signUpButton.addEventListener('click', () => {
 signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
 });
+
+// afficher ou masquer le lien de déconnexion
+function toggleLogout() {
+    var decoLink = document.getElementById("deco-link"); 
+
+    // Vérifie si le lien de déconnexion est actuellement caché ou visible
+    if (decoLink.style.display === 'none') {
+        decoLink.style.display = 'inline'; 
+    } else {
+        decoLink.style.display = 'none'; 
+    }
+}

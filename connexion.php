@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +27,7 @@
 
                 <label for="mdp">Mot de passe</label>
                 <input type="text" placeholder="Mot de passe" name="mdp" />
-                
+
                 <button type="submit">s'inscrire</button>
             </form>
         </div>

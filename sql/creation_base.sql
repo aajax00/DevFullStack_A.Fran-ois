@@ -83,6 +83,7 @@ VALUES
 'Python', 'SQL', 'null');
 
 
+
 -- Data Insertion compte utilisateur
 -- INSERT INTO users (nom, prenom, login, mdp) VALUES 
 -- ('Dupont', 'Jean', 'jdp@mail.com', 'azerty'),

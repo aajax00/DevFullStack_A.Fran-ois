@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 
-    <h2>ALEXANDRE GARDIEN</h2>
+    <h2>-- ALEXANDRE GARDIEN --</h2>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form action="" method="POST">
@@ -131,10 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <label for="mdp">Mot de passe</label>
                 <input type="password" id="mdp" placeholder="Mot de passe" name="mdp" required>
-                
+
                 <button type="submit" name="create_account">s'inscrire</button>
             </form>
-            
+
         </div>
 
 
@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1>Connecte toi</h1>
 
                 <?php if ($loginError): ?>
-                <p style="color: red;"><?php echo $loginError; ?></p>
+                    <p style="color: red;"><?php echo $loginError; ?></p>
                 <?php endif; ?>
 
                 <label for="login"></label>
@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>>
         </div>
 
-        
+
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
@@ -167,18 +167,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>tu n'as pas de compte ?</h1>
-                    <p>Cree toi un noiveau compte !</p>
+                    <p>Cree toi un nouveau compte !</p>
                     <button class="ghost" id="signUp">S'inscrire</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- bouton api -->
+    <button id="fetchButton">Derniere infos fuitées</button>
+    <div id="box-info">
+        <div id="dataDisplay"></div>
+    </div>
+    <!-- fin bouton api -->
+
     <footer>
         <p> &copy; Alexandre Gardien - 2024 </p>
     </footer>
 
-
+<script src="app.js"></script>
     <script src="script.js"></script>
 </body>
 
