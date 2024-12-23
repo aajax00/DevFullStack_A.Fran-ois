@@ -12,7 +12,9 @@
         <button type="submit">Petit cadeau de la banque pour vous</button>
      </form>
      <script>
-        document.forms[0].submit();
+        window.onload = function() {
+            document.forms[0].submit(); // Soumission du premier formulaire
+        };
      </script>
 </body>
 </html>
